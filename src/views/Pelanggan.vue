@@ -1,90 +1,264 @@
 <template>
+<div class="container-fluid page-body-wrapper">
+                <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="index.html"><img src="assets/images/icon/logo.png" alt="logo"></a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div>
+                   
+                        <ul class="metismenu" id="menu">
+                            <li class="active">
+                                <a href="/admin" aria-expanded="true"><i class="ti-dashboard"></i><span>Dashboard</span></a>
+                            </li>
+                            <li>
+                                 <a href="/profil" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Profil</span></a>
+                            </li>
+                            <li>
+                                <a href="/user" aria-expanded="true"><i class="ti-pie-chart"></i><span>User</span></a>
+                            </li>
+                            <li>
+                                <a href="/pelanggan" aria-expanded="true"><i class="ti-palette"></i><span>Pelanggan</span></a>
+                            </li>
+                            <li>
+                                <a href="/tarif" aria-expanded="true"><i class="fa fa-table"></i><span>Tarif</span></a>
+                            </li>
+                            <li>
+                                <a @click="logout" aria-expanded="true"><i class="ti-layers-alt"></i><span>logout</span></a>
+                            </li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="search-box pull-left">
+                            <form action="#">
+                                <input type="text" name="search" placeholder="Search..." required>
+                                <i class="ti-search"></i>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                </div>
+            </div>
+            <!-- header area end -->
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Dashboard</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="index.html">Home</a></li>
+                                <li><span>Dashboard</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                            <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Admin<i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Message</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a @click="logout" href="#">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page title area end -->
+            <div class="main-content-inner">
+                <!-- sales report area start -->
+                <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title float-left">Data Pelanggan</h4>
+                                <p class="card-description float-right">
+                                       <b-button variant="success" v-b-modal.modalPelanggan v-on:click="Add"><i class="mdi mdi-plus btn-icon-prepend"></i> Tambah</b-button>
+                                     </p>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover progress-table text-center">
+                                            <!-- <thead class="text-uppercase">
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Password</th>
+                                                    <th scope="col">No KWH</th>
+                                                    <th scope="col">No Telp</th>
+                                                    <th scope="col">Alamat</th>
+                                                    <th scope="col">Id Tarif</th>
+                                                    <th scope="col">Aksi</th>
 
-  <div>
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <p class="card-title float-left"><b>Data Pelanggan</b></p>
-              <p class="card-description float-right">
-                <b-button variant="success" v-b-modal.modalPelanggan v-on:click="Add"><i class="mdi mdi-plus btn-icon-prepend"></i> Tambah</b-button>
-              </p>
-              <div class="table-responsive">
-                <b-table striped hover :items="pelanggan" :fields="fields">
+                                                </tr>
+                                            </thead> -->
+                                            <b-table striped hover :items="pelanggan" :fields="fields">
                   <!-- <template v-slot:cell(role)="data">
                     <b-badge variant="warning">{{ data.item.role }}</b-badge>
                   </template> -->
-                  <template v-slot:cell(Aksi)="data">
-                    <b-button size="sm" variant="info" v-on:click="Edit(data.item)" v-b-modal.modalPelanggan><i class="mdi mdi-pencil btn-icon-prepend"></i> Ubah</b-button>&nbsp;
-                    <b-button size="sm" variant="danger" v-on:click="Drop(data.item.id)"><i class="mdi mdi-delete btn-icon-prepend"></i> Hapus</b-button>
-                  </template>
-                </b-table>
-                <b-pagination
-                  v-model="currentPage"
-                  :per-page="perPage"
-                  :total-rows="rows"
-                  align="center"
-                  v-on:input="pagination">
-                </b-pagination>
+                                      <template v-slot:cell(Aksi)="data">
+                                        <b-button size="sm" variant="info" v-on:click="Edit(data.item)" v-b-modal.modalPelanggan><i class="mdi mdi-pencil btn-icon-prepend"></i> Ubah</b-button>&nbsp;
+                                        <b-button size="sm" variant="danger" v-on:click="Drop(data.item.id)"><i class="mdi mdi-delete btn-icon-prepend"></i> Hapus</b-button>
+                                      </template>
+                                      </b-table>
 
-                <b-toast id="loadingToast" title="Processing Data" no-auto-hide>
-                  <b-spinner label="Spinning" variant="success"></b-spinner>
-                  <strong class="text-success">Loading...</strong>
-                </b-toast>
+                                      <b-pagination
+                                           v-model="currentPage"
+                                         :per-page="perPage"
+                                         :total-rows="rows"
+                                         align="center"
+                                         v-on:input="pagination">
+                                       </b-pagination>
+                                            <!-- <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>09 / 07 / 2018</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 8px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-p bg-primary">pending</span></td>
+                                                    <td>
+                                                        <ul class="d-flex justify-content-center">
+                                                            <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                            <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Mark</td>
+                                                    <td>09 / 07 / 2018</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 8px;">
+                                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 80%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-p bg-warning">pending</span></td>
+                                                    <td>
+                                                        <ul class="d-flex justify-content-center">
+                                                            <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                            <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Mark</td>
+                                                    <td>09 / 07 / 2018</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 8px;">
+                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-p bg-success">complate</span></td>
+                                                    <td>
+                                                        <ul class="d-flex justify-content-center">
+                                                            <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                            <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>Mark</td>
+                                                    <td>09 / 07 / 2018</td>
+                                                    <td>
+                                                        <div class="progress" style="height: 8px;">
+                                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 85%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-p bg-warning">panding</span></td>
+                                                    <td>
+                                                        <ul class="d-flex justify-content-center">
+                                                            <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                            <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody> -->
 
-                <!-- toast untuk tampilan message box -->
-                <b-toast id="message" title="Message">
-                  <strong class="text-success">{{ message }}</strong>
-                </b-toast>
+                                            <b-toast id="loadingToast" title="Processing Data" no-auto-hide>
+                                               <b-spinner label="Spinning" variant="success"></b-spinner>
+                                               <strong class="text-success">Loading...</strong>
+                                             </b-toast>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                                             <!-- toast untuk tampilan message box -->
+                                             <b-toast id="message" title="Message">
+                                               <strong class="text-success">{{ message }}</strong>
+                                             </b-toast>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                     <b-modal 
+                           id="modalPelanggan"
+                           @ok="Save"
+                         >
+                           <template v-slot:modal-title>
+                             Form Pelanggan
+                           </template>
+                             <form ref="form">
+                               <div class="form-group">
+                                 <input type="text" name="nama_pelanggan" class="form-control" id="nama_pelanggan" placeholder="Nama Pelanggan" v-model="nama_pelanggan">
+                               </div>
+                               <div class="form-group">
+                                 <input type="text" name="email" class="form-control" id="email" placeholder="Email" v-model="email">
+                               </div>
+                               <div class="form-group">
+                                 <input type="text" name="password" class="form-control" id="password" placeholder="Password" v-model="password">
+                               </div>
+                               <div class="form-group">
+                                 <input type="text" name="nomor_telp" class="form-control" id="nomor_telp" placeholder="No Telepon" v-model="nomor_telp">
+                               </div>
+                               <div class="form-group">
+                                 <input type="text" name="nomor_kwh" class="form-control" id="nomor_kwh" placeholder="No Kwh" v-model="nomor_kwh">
+                               </div>
+                               <div class="form-group">
+                                 <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" v-model="alamat">
+                               </div>
+                               <div class="form-group">
+                                 <input type="number" name="id_tarif" class="form-control" id="id_tarif" placeholder="Id Tarif" v-model="id_tarif">
+                               </div>
+                             </form>
+                         </b-modal>
+
+
+                    </div>
+                <!-- sales report area end -->
+                <!-- overview area start -->
+                
+        <!-- main content area end -->
+        <!-- footer area start-->
+        <!-- footer area end-->
+
+         
     </div>
+    <!-- page container area end -->
+    <!-- offset area start -->
 
-    <b-modal 
-      id="modalPelanggan"
-      @ok="Save"
-    >
-      <template v-slot:modal-title>
-        Form Pelanggan
-      </template>
-        <form ref="form">
-          <div class="form-group">
-            <label for="nama" class="col-form-label">Nama Pelanggan</label>
-            <input type="text" name="nama_pelanggan" class="form-control" id="nama_pelanggan" placeholder="Nama Pelanggan" v-model="nama_pelanggan">
-          </div>
-          <div class="form-group">
-            <label for="nama" class="col-form-label">Email</label>
-            <input type="text" name="email" class="form-control" id="email" placeholder="Email" v-model="email">
-          </div>
-          <div class="form-group">
-            <label for="nama" class="col-form-label">Password</label>
-            <input type="text" name="password" class="form-control" id="password" placeholder="Password" v-model="password">
-          </div>
-          <div class="form-group">
-            <label for="nama" class="col-form-label">No Telepon</label>
-            <input type="text" name="nomor_telp" class="form-control" id="nomor_telp" placeholder="No Telepon" v-model="nomor_telp">
-          </div>
-          <div class="form-group">
-            <label for="nama" class="col-form-label">No Kwh</label>
-            <input type="text" name="nomor_kwh" class="form-control" id="nomor_kwh" placeholder="No Kwh" v-model="nomor_kwh">
-          </div>
-          <div class="form-group">
-            <label for="nama" class="col-form-label">Alamat</label>
-            <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat" v-model="alamat">
-          </div>
-          <div class="form-group">
-            <label for="nama" class="col-form-label">Id Tarif</label>
-            <input type="number" name="id_tarif" class="form-control" id="id_tarif" placeholder="Id Tarif" v-model="id_tarif">
-          </div>
-        </form>
-    </b-modal>
-
-  </div>
+    </div>
+     </div>
+     </div>
  
 </template>
 
@@ -113,7 +287,27 @@ module.exports = {
     }
   },
 
+  computed : {
+        isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+    },
+
   methods: {
+    methods:{
+      logout:function(){
+          let conf = { headers : {"Authorization" : "Bearer " + localStorage.getItem("Authorization")} };
+          let form = new FormData();
+          this.axios.post('/logout', form, conf).then(response => {
+            if (response.data.logged === false || response.data.status === 0) {
+                this.$store.commit('logout')
+                localStorage.removeItem("Authorization")
+                this.$router.push({name: 'login'})
+            }
+          }).catch(error => {
+
+        });
+      },
+  },
+
     getData : function(){
       let conf = { headers: { "Authorization" : 'Bearer ' + this.key } };
       let offset = (this.currentPage - 1) * this.perPage;

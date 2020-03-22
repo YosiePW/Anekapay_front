@@ -3,15 +3,24 @@
 	// ============================================
 	// Chart 
 	// ============================================
+	var chart = document.getElementById("chart");  
+  
+	if(chart != null) {  
+		// do here.  
+		chart.getContext("2d");
+		
+	} else {  
+		// report the error.  
+	}  
+	// var chart    = document.getElementById('chart').getContext('2d'),
+	// 	gradient = chart.createLinearGradient(0, 0, 0, 450);
 
-	var chart    = document.getElementById('chart').getContext('2d'),
-		gradient = chart.createLinearGradient(0, 0, 0, 450);
+	gradient = chart.createLinearGradient(0, 0, 0, 450); 
+		gradient.addColorStop(0, 'rgba(123, 94, 234, 0.5)');
+		gradient.addColorStop(0.5, 'rgba(123, 94, 234, 0.25)');
+		gradient.addColorStop(1, 'rgba(123, 94, 234, 0)');
 
-	gradient.addColorStop(0, 'rgba(123, 94, 234, 0.5)');
-	gradient.addColorStop(0.5, 'rgba(123, 94, 234, 0.25)');
-	gradient.addColorStop(1, 'rgba(123, 94, 234, 0)');
-
-
+	
 	var data  = {
 		labels: [ 'Year 2018', 'Year 2019', 'Year 2020', 'Year 2021', 'Year 2022', 'Year 2023' ],
 		datasets: [{
@@ -92,7 +101,7 @@
 			titleMarginBottom: 10,
 			displayColors: false,
 			xPadding: 20,
-			yPadding: 20
+			yPadding: 20,
 		}
 	};
 

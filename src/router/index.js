@@ -4,9 +4,15 @@ import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import IndexAdmin from '../views/IndexAdmin.vue'
+import UserProfil from '../views/UserProfil.vue'
+import Pelanggan from '../views/Pelanggan.vue'
 import FooterAdmin from '../views/layouts/FooterAdmin.vue'
 import Sidebar from '../views/layouts/Sidebar.vue'
 import NavbarAdmin from '../views/layouts/NavbarAdmin.vue'
+import Tarif from '../views/Tarif.vue'
+import User from '../views/User.vue'
+
+
 
 
 Vue.use(VueRouter)
@@ -30,7 +36,27 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    components: {default: IndexAdmin, header: NavbarAdmin, sidebar: Sidebar, footer: FooterAdmin},
+    components: {default: IndexAdmin}
+  },
+  {
+    path: '/pelanggan',
+    name: 'pelanggan',
+    components: {default: Pelanggan}
+  },
+  {
+    path: '/acount',
+    name: 'acount',
+    components: {default: UserProfil, header: NavbarAdmin, sidebar: Sidebar, footer: FooterAdmin},
+  },
+  {
+    path: '/user',
+    name: 'user',
+    components: {default: User},
+  },
+  {
+    path: '/tarif',
+    name: 'tarif',
+    components: {default: Tarif},
   }
   
 ]
